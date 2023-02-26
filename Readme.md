@@ -40,6 +40,14 @@ helm upgrade --install -f deploy/rob-demo/helm-values-00-base.yaml \
 rob-demo bitnami/aspnet-core \
 -f deploy/rob-demo/helm-values-02-autoscaling.yaml 
 ```
+
+```
+helm upgrade --install -f deploy/crappy-api/helm-values-00-base.yaml \
+--namespace rob-demo --create-namespace \
+--atomic --wait --debug \
+crappy-api bitnami/aspnet-core 
+```
+
 ## Load testing
 
 - [Top 10 HTTP Benchmarking and Load Testing Tools](https://thechief.io/c/editorial/top-10-http-benchmarking-and-load-testing-tools/)

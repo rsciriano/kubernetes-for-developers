@@ -1,0 +1,19 @@
+appFromExternalRepo:
+  enabled: false
+command:
+  - dotnet
+args:
+  - "/app/CrappyApi.dll"
+image:
+  repository: ghcr.io/fernandoescolar/crappy-api
+  tag: latest
+
+ingress:
+  enabled: true
+  pathType: Prefix
+  hostname: kubernetes.docker.internal
+  path: /crappy-api(/|$)(.*)
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  ingressClassName: nginx
