@@ -1,0 +1,26 @@
+appFromExternalRepo:
+  enabled: false
+command:
+  - dotnet
+args:
+  - "/App/MinimalWeb.dll"
+image:
+  repository: rsciriano/k8s-minimal-web
+  tag: v6
+
+ingress:
+  enabled: true
+  pathType: Prefix
+  hostname: kubernetes.docker.internal
+  path: /rob-demo(/|$)(.*)
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  ingressClassName: nginx
+
+extraEnvVars:
+  - name: Logging__LogLevel__Default
+    value: Warning
+  - name: DemoName
+    value: InitialDemo5
+extraEnvVarsSecret: rob-demo-secrets
