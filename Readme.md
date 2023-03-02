@@ -4,12 +4,22 @@
 
 - Docker Desktop | Rancher Desktop | Minikube
 - Install Ingress controller
+    ```
+    helm repo add nginx-stable https://helm.nginx.com/stable
+    helm install --namespace nginx-ingress --create-namespace nginx-ingress nginx-stable/nginx-ingress
+    ```
 - Install Prometheus Stack
 - Install metric server
 https://artifacthub.io/packages/helm/metrics-server/metrics-server
 ```
     helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
     helm upgrade --install metrics-server metrics-server/metrics-server --namespace metrics-server --create-namespace --atomic --wait -f deploy/metrics-server/heml-values.yaml
+```
+KEDA
+
+```
+helm repo add kedacore https://kedacore.github.io/charts
+helm install keda kedacore/keda --namespace keda --create-namespace
 ```
 
 ## Conecting to the kubernetes cluster

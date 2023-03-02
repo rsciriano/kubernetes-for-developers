@@ -6,7 +6,8 @@ args:
   - "/App/MinimalWeb.dll"
 image:
   repository: rsciriano/k8s-minimal-web
-  tag: v6
+  tag: v14
+  #pullPolicy: Always
 
 ingress:
   enabled: true
@@ -20,7 +21,7 @@ ingress:
 
 extraEnvVars:
   - name: Logging__LogLevel__Default
-    value: Warning
+    value: Information
   - name: DemoName
-    value: InitialDemo5
+    value: InitialDemo8
 extraEnvVarsSecret: rob-demo-secrets

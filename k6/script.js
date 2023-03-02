@@ -29,10 +29,10 @@ function httpDelete(url) {
 
 
 export default function () {
-
+  //httpGet('http://localhost:49319/')
   httpGet('http://kubernetes.docker.internal/rob-demo')
-  httpGet('http://kubernetes.docker.internal/crappy-api/cpu/30')
-  httpGet('http://kubernetes.docker.internal/crappy-api/memory/1000')
-  httpDelete('http://kubernetes.docker.internal/crappy-api/memory/1000')
+  //httpGet('http://kubernetes.docker.internal/crappy-api/cpu/30')
+  //httpGet('http://kubernetes.docker.internal/crappy-api/memory/1000')
+  //httpDelete('http://kubernetes.docker.internal/crappy-api/memory/1000')
 
 }
