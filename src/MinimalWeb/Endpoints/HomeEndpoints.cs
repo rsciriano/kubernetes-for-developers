@@ -24,7 +24,10 @@ public static class HomeEndpoints
                         <td>Machine name:</td><td>{Environment.MachineName}</td>
                     </tr>
                     <tr>
-                        <td>Proccess duration:</td><td>{result.Duration}</td>
+                        <td>Waiting for initialization:</td><td>{result.InitializationDuration.TotalMilliseconds} ms</td>
+                    </tr>
+                    <tr>
+                        <td>Proccess duration:</td><td>{result.ProcessDuration.TotalMilliseconds} ms</td>
                     </tr>
                     <tr>
                         <td>App version:</td><td>{configuration.GetValue<string>("AppVersion")}</td>

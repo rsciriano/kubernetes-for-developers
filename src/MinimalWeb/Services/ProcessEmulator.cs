@@ -28,17 +28,21 @@ public class ProcessEmulator
 
     public async Task<ProcessResult> RunProcess(CancellationToken cancellationToken = default)
     {
+        var sw = System.Diagnostics.Stopwatch.StartNew();
         await EnsureInitialization(cancellationToken);
 
-        var sp = System.Diagnostics.Stopwatch.StartNew();
-
+        var result = new ProcessResult { InitializationDuration = sw.Elapsed };
+        
+        sw.Restart();
         await Task.Delay(Random.Shared.Next(10, 2000), cancellationToken);
+        result.ProcessDuration = sw.Elapsed;
 
-        return new ProcessResult {Duration = sp.Elapsed};
+        return result;
     }
 }
 
 public class ProcessResult
 {
-    public TimeSpan Duration { get; set; }
+    public TimeSpan InitializationDuration { get; set; }
+    public TimeSpan ProcessDuration { get; set; }
 }
