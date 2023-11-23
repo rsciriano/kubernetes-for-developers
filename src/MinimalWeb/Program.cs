@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Http.Timeouts;
 using MinimalWeb.Endpoints;
 using MinimalWeb.HealthChecks;
 using MinimalWeb.Services;
@@ -8,6 +9,15 @@ builder
     .Services
         .AddApplicationInsightsTelemetry()
         .AddApplicationInsightsKubernetesEnricher(diagnosticLogLevel: LogLevel.Information)
+        .AddRequestTimeouts(options =>
+        {
+            var requestTimeoutMs = builder.Configuration.GetValue<int?>("RequestTimeoutMs");
+            if (requestTimeoutMs.HasValue) 
+            { 
+                options.DefaultPolicy = new RequestTimeoutPolicy 
+                { Timeout = TimeSpan.FromMilliseconds(requestTimeoutMs.Value) };
+            }
+        })
         .AddSingleton<ProcessEmulator>();
 
 builder.Services.AddHealthChecks()
@@ -19,6 +29,8 @@ builder.Services.AddHealthChecks()
         tags: new[] { "readiness", "liveness" });
 
 var app = builder.Build();
+
+app.UseRequestTimeouts();
 
 app.MapHealthChecks("/probes/startup", new HealthCheckOptions
 {

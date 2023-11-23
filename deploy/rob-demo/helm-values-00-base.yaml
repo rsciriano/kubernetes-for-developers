@@ -6,17 +6,14 @@ args:
   - "/App/MinimalWeb.dll"
 image:
   repository: rsciriano/k8s-minimal-web
-  tag: v14
+  tag: v15
   #pullPolicy: Always
 
 ingress:
   enabled: true
   pathType: Prefix
   hostname: kubernetes.docker.internal
-  path: /rob-demo(/|$)(.*)
-  annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  path: /rob-demo
   ingressClassName: nginx
 
 extraEnvVars:

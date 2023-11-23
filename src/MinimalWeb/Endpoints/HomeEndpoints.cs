@@ -4,14 +4,14 @@ public static class HomeEndpoints
 {
     public static RouteGroupBuilder MapHomeEndpoints(this RouteGroupBuilder group)
     {
-        group.MapGet("", GetHomePage);
+        group.MapGet("/rob-demo", GetHomePage);
 
         return group;
     }
 
-    private static async Task<IResult> GetHomePage(Services.ProcessEmulator processEmulator)
+    private static async Task<IResult> GetHomePage(Services.ProcessEmulator processEmulator, HttpContext httpContext, IConfiguration configuration)
     {
-        var result = await processEmulator.RunProcess();
+        var result = await processEmulator.RunProcess(httpContext.RequestAborted);
 
         return Results.Extensions.Html($"""
         <!doctype html>
@@ -25,6 +25,9 @@ public static class HomeEndpoints
                     </tr>
                     <tr>
                         <td>Proccess duration:</td><td>{result.Duration}</td>
+                    </tr>
+                    <tr>
+                        <td>App version:</td><td>{configuration.GetValue<string>("AppVersion")}</td>
                     </tr>
                 </table>
             </body>

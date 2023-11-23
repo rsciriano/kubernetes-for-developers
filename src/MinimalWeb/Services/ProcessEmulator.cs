@@ -9,7 +9,7 @@ public class ProcessEmulator
         lock(this) {
             if (_initializationTask is null || _initializationTask.IsFaulted)
             {
-                _initializationTask = Task.Delay(Random.Shared.Next(5000, 10000), cancellationToken);
+                _initializationTask = Task.Delay(Random.Shared.Next(2000, 5000), cancellationToken);
             }
         }
         return _initializationTask;
@@ -20,10 +20,10 @@ public class ProcessEmulator
         return _initializationTask != null && _initializationTask.IsCompletedSuccessfully;
     }
 
-    protected async Task EnsureInitialization(CancellationToken cancellationToken = default)
-    {       
-        var initializationTask = Initialize();        
-        await initializationTask.WaitAsync(TimeSpan.FromMilliseconds(1000), cancellationToken);
+    protected Task EnsureInitialization(CancellationToken cancellationToken = default)
+    {
+        var initializationTask = Initialize();
+        return initializationTask.WaitAsync(cancellationToken);
     }
 
     public async Task<ProcessResult> RunProcess(CancellationToken cancellationToken = default)

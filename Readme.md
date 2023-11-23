@@ -9,6 +9,11 @@
     helm install --namespace nginx-ingress --create-namespace nginx-ingress nginx-stable/nginx-ingress
     ```
 - Install Prometheus Stack
+    ```
+    helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+    helm repo update
+    helm install --namespace prometheus-stack --create-namespace prometheus-stack prometheus-community/kube-prometheus-stack
+    ```
 - Install metric server
 https://artifacthub.io/packages/helm/metrics-server/metrics-server
 ```
