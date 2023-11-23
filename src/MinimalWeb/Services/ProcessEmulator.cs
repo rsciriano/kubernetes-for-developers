@@ -34,7 +34,7 @@ public class ProcessEmulator
         var result = new ProcessResult { InitializationDuration = sw.Elapsed };
         
         sw.Restart();
-        await Task.Delay(Random.Shared.Next(10, 2000), cancellationToken);
+        await Task.Delay(Random.Shared.Next(10, 1500), cancellationToken);
         result.ProcessDuration = sw.Elapsed;
 
         return result;

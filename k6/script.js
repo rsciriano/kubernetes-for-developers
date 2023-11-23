@@ -1,19 +1,23 @@
 import http from 'k6/http';
-import { sleep } from 'k6';
+import { sleep, check } from 'k6';
 import { Trend } from 'k6/metrics';
 import { Counter } from 'k6/metrics';
 
 const failsCounter = new Counter('http_reqs_failed');
 
 function httpGet(url) {
-  const res = http.get(url);
+  const response = http.get(url);
   
-  if (res.error_code){
+  if (response.error_code){
     failsCounter.add(1)
   }
   else {
     failsCounter.add(0)   
   }
+
+  check(response, {
+    "error": (res) => res.status != 200
+  });
 }
 
 function httpDelete(url) {

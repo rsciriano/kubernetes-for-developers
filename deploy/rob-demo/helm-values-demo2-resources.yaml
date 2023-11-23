@@ -1,0 +1,38 @@
+appFromExternalRepo:
+  enabled: false
+command:
+  - dotnet
+args:
+  - "/App/MinimalWeb.dll"
+image:
+  repository: rsciriano/k8s-minimal-web
+  tag: dnz-demo2
+  #pullPolicy: Always
+
+ingress:
+  enabled: true
+  pathType: Prefix
+  hostname: kubernetes.docker.internal
+  path: /rob-demo
+  ingressClassName: nginx
+
+extraEnvVars:
+  - name: Logging__LogLevel__Default
+    value: Information
+  - name: Logging__ApplicationInsights__LogLevel__Default
+    value: Information
+  - name: AppVersion
+    value: dnz-demo2-resources
+  - name: RequestTimeoutMs
+    value: "3000"
+extraEnvVarsSecret: rob-demo-secrets
+
+resources:
+  requests:
+    cpu: 80m
+    memory: 250Mi
+  limits:
+    cpu: 100m
+    memory: 250Mi
+
+replicaCount: 2
