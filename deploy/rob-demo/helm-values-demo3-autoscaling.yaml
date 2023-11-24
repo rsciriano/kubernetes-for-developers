@@ -1,0 +1,48 @@
+appFromExternalRepo:
+  enabled: false
+command:
+  - dotnet
+args:
+  - "/App/MinimalWeb.dll"
+image:
+  repository: rsciriano/k8s-minimal-web
+  tag: dnz-demo3
+  #pullPolicy: Always
+
+ingress:
+  enabled: true
+  pathType: Prefix
+  hostname: kubernetes.docker.internal
+  path: /rob-demo
+  ingressClassName: nginx
+
+extraEnvVars:
+  - name: Logging__LogLevel__Default
+    value: Information
+  - name: Logging__ApplicationInsights__LogLevel__Default
+    value: Information
+  - name: AppVersion
+    value: dnz-demo3-autoscaling
+  - name: RequestTimeoutMs
+    value: "3000"
+extraEnvVarsSecret: rob-demo-secrets
+
+resources:
+  requests:
+    cpu: 80m
+    memory: 250Mi
+  limits:
+    cpu: 100m
+    memory: 250Mi
+
+#replicaCount: 2
+
+autoscaling:
+  enabled: true     # Enable autoscaling for ASP.NET Core	(false)
+  minReplicas: 2    # Minimum number of ASP.NET Core replicas	(1)
+  maxReplicas: 16   # Maximum number of ASP.NET Core replicas	(11)
+  targetCPU: 70	    # Target CPU utilization percentage	("")
+  # Target Memory utilization percentage	()"")
+  #targetMemory: 90
+  #behavior:
+  #  scaleDown:
