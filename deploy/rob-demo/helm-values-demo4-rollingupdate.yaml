@@ -22,7 +22,7 @@ extraEnvVars:
   - name: Logging__ApplicationInsights__LogLevel__Default
     value: Information
   - name: AppVersion
-    value: dnz-demo4-rollingupdate11
+    value: dnz-demo4-rollingupdate
   - name: RequestTimeoutMs
     value: "3000"
 extraEnvVarsSecret: rob-demo-secrets
@@ -35,12 +35,10 @@ resources:
     cpu: 100m
     memory: 250Mi
 
-replicaCount: null
-
 autoscaling:
   enabled: true     # Enable autoscaling for ASP.NET Core	(false)
   minReplicas: 2    # Minimum number of ASP.NET Core replicas	(1)
-  maxReplicas: 16   # Maximum number of ASP.NET Core replicas	(11)
+  maxReplicas: 30   # Maximum number of ASP.NET Core replicas	(11)
   targetCPU: 70	    # Target CPU utilization percentage	("")
   # Target Memory utilization percentage	()"")
   #targetMemory: 90

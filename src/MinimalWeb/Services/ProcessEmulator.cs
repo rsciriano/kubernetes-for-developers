@@ -9,7 +9,7 @@ public class ProcessEmulator
         lock(this) {
             if (_initializationTask is null || _initializationTask.IsFaulted)
             {
-                _initializationTask = Task.Delay(Random.Shared.Next(4000, 10000), cancellationToken);
+                _initializationTask = Task.Delay(Random.Shared.Next(5000, 15000), cancellationToken);
             }
         }
         return _initializationTask;
