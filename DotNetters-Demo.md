@@ -56,3 +56,13 @@ docker build -t rsciriano/k8s-minimal-web:dnz-demo4 .
 ```
 helm upgrade --install -f deploy/rob-demo/helm-values-demo4-rollingupdate.yaml --namespace rob-demo --create-namespace --atomic --wait --debug rob-demo ../bitnami-charts/bitnami/aspnet-core
 ```
+
+## Demo 5: Probes
+
+```
+docker build -t rsciriano/k8s-minimal-web:dnz-demo5 .
+```
+
+```
+helm upgrade --install -f deploy/rob-demo/helm-values-demo5-probes.yaml --namespace rob-demo --create-namespace --atomic --wait --debug rob-demo ../bitnami-charts/bitnami/aspnet-core
+```
