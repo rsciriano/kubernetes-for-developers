@@ -9,7 +9,7 @@ public class ProcessEmulator
         lock(this) {
             if (_initializationTask is null || _initializationTask.IsFaulted)
             {
-                _initializationTask = Task.Delay(Random.Shared.Next(2000, 5000), cancellationToken);
+                _initializationTask = Task.Delay(Random.Shared.Next(4000, 10000), cancellationToken);
             }
         }
         return _initializationTask;
@@ -34,7 +34,7 @@ public class ProcessEmulator
         var result = new ProcessResult { InitializationDuration = sw.Elapsed };
         
         sw.Restart();
-        await Task.Delay(Random.Shared.Next(10, 1500), cancellationToken);
+        await Task.Delay(Random.Shared.Next(10, 1000), cancellationToken);
         result.ProcessDuration = sw.Elapsed;
 
         return result;
